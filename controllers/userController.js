@@ -4,18 +4,25 @@ module.exports = {
   // Get all users
   getUsers(req, res) {
     User.find()
-      .then((courses) => res.json(courses))
+      .select('-__v')
+      .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
   // Get single user
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
+      .select('-__v')
+      .populate('friends')
+      .populate('thoughts')
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
           : res.json(user)
       )
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        res.status(500).json(err);
+        console.log(err);
+      })
   },
   // Create a user
   createUser(req, res) {

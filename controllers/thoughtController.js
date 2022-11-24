@@ -32,6 +32,11 @@ module.exports = {
   createThought(req, res) {
     Thought.create(req.body)
       .then((thought) => res.json(thought))
+        return User.findOneAndUpdate(
+          { _id: req.params.userId },
+          { $set: req.body },
+          { runValidators: true, new: true }
+        )
       .catch((err) => res.status(500).json(err));
   },
   // Update a thought
