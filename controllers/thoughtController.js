@@ -31,12 +31,13 @@ module.exports = {
   // Create a new thought
   createThought(req, res) {
     Thought.create(req.body)
-      .then((thought) => res.json(thought))
+      .then((thought) => {
         return User.findOneAndUpdate(
-          { _id: req.params.userId },
-          { $set: req.body },
+          { username: req.body.username },
+          { $push: { thoughts: thought.thoughtText } },
           { runValidators: true, new: true }
-        )
+        );
+      })
       .catch((err) => res.status(500).json(err));
   },
   // Update a thought
@@ -64,13 +65,6 @@ module.exports = {
             { $pull: { thoughts: req.params.thoughtId } },
             { new: true }
           )
-      )
-      .then((user) =>
-        !user
-          ? res.status(404).json({
-            message: 'Thought deleted, but no user found',
-          })
-          : res.json({ message: 'Thought successfully deleted' })
       )
       .catch((err) => {
         console.log(err);
