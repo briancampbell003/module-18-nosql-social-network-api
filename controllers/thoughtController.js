@@ -40,10 +40,10 @@ module.exports = {
       })
       .then((user) =>
         !user
-        ? res
+          ? res
             .status(404)
             .json({ message: 'thought created, but no user with this ID' })
-        : res.json({ message: 'thought created' })
+          : res.json({ message: 'thought created' })
       )
       .catch((err) => {
         console.log(err);
@@ -74,7 +74,13 @@ module.exports = {
             { thoughts: req.params.thoughtId },
             { $pull: { thoughts: req.params.thoughtId } },
             { new: true }
-          )
+          ))
+      .then((user) =>
+        !user
+          ? res
+            .status(404)
+            .json({ message: 'thought deleted, but no user with this ID' })
+          : res.json({ message: 'thought deleted' })
       )
       .catch((err) => {
         console.log(err);
