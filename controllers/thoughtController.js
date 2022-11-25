@@ -34,11 +34,21 @@ module.exports = {
       .then((thought) => {
         return User.findOneAndUpdate(
           { username: req.body.username },
-          { $push: { thoughts: thought.thoughtText } },
+          { $push: { thoughts: thought._id } },
           { runValidators: true, new: true }
         );
       })
-      .catch((err) => res.status(500).json(err));
+      .then((user) =>
+        !user
+        ? res
+            .status(404)
+            .json({ message: 'thought created, but no user with this ID' })
+        : res.json({ message: 'thought created' })
+      )
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).json(err);
+      });
   },
   // Update a thought
   updateThought(req, res) {
@@ -94,7 +104,7 @@ module.exports = {
   removeReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reaction: { reactionId: req.params.reactionId } } },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
       { runValidators: true, new: true }
     )
       .then((thought) =>
@@ -104,6 +114,9 @@ module.exports = {
             .json({ message: 'No thought found with that ID!' })
           : res.json(thought)
       )
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
 };
