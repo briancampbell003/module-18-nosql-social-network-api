@@ -1,0 +1,52 @@
+{
+		"username": "Ashley",
+		"email": "ash@internet.com"
+}
+{
+		"username": "Jimbo",
+		"email": "james@web.net"
+}
+{
+		"username": "SoccerGuy",
+		"email": "fifa@aol.com"
+}
+{
+		"username": "Sarah",
+		"email": "sarah@sarah.com"
+}
+
+THOUGHTS:
+{
+	"thoughtText": "The truth will set you free!",
+	"username": "Ashley"
+}
+{
+	"thoughtText": "The truth is overrated...",
+	"username": "Ashley"
+}
+{
+	"thoughtText": "In a past life I was definitely an astronaut!",
+	"username": "Jimbo"
+}
+{
+	"thoughtText": "The world cup is happening now! Everybody tune in!",
+	"username": "SoccerGuy"
+}
+{
+	"thoughtText": "Anyone know a good sushi place?",
+	"username": "Sarah"
+}
+
+REACTIONS:
+{
+	"reactionBody": "yup! Love it",
+	"username": "Jimbo"
+}
+{
+	"reactionBody": "let's go Japan!",
+	"username": "Sarah"
+}
+{
+	"reactionBody": "I know a good pizza place",
+	"username": "Ashley"
+}
